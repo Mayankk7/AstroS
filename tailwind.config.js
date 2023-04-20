@@ -17,7 +17,10 @@ module.exports = {
         "homecard" : "url('./components/assets/images/homecard.png')",
         "sat" : "url('./components/assets/images/Sat.svg')",
         "btnbg" : "url('./components/assets/images/btnbg.svg')",
-        "circle": "url('./components/assets/images/circle.svg')"
+        "circle": "url('./components/assets/images/circle.svg')",
+        "location" :"url('./components/assets/images/location.svg')",
+        "moon" : "url('./components/assets/images/moon.svg')",
+        "spacecard" : "url('./components/assets/images/spacecard.svg')"
       },
       fontFamily: {
         calluna: ['Calluna', 'sans-serif'],

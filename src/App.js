@@ -5,6 +5,8 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Home from './components/Home/Home';
 import ID from './components/Home/ID';
+import Location from './components/Location/Location';
+import Space from './components/Space/Space';
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
           <Route path="/register" element={<Register/>}/>
           <Route path='/home' element={<Home/>}/>
           <Route path="/satid" element={<ID/>}/>
+          <Route path="/location" element={<Location/>}/>
+          <Route path="/traffic" element={<Space/>}/>
         </Routes>
       </BrowserRouter>
     </div>

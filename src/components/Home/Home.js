@@ -29,7 +29,8 @@ const Home = () => {
                             <Card/>
                             <Card/>
                     </div>
-                    <button className='bg-transparent border-[3px] text-center float-right mr-[4vw] border-white w-[10vw] px-2 py-1 text-sm rounded-lg text-white hover:bg-white hover:text-black ml-16 mt-4'>
+                    <button
+                     className='bg-transparent border-[3px] text-center float-right mr-[4vw] border-white w-[10vw] px-2 py-1 text-sm rounded-lg text-white hover:bg-white hover:text-black ml-16 mt-4'>
                         More Satellites 
                     </button>
                 </div>
