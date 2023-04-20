@@ -58,6 +58,7 @@ const Icon = styled.img`
 `
 
 
+
 const Landing = () => {
 
   const NextPage = () => {
@@ -65,10 +66,9 @@ const Landing = () => {
   }
 
   return (
-    <div className='home'>
-    
+    <>
     <CanvasContainer>
-    
+
       <Canvas>
         <Suspense fallback={null}>
           <Earth />
@@ -81,7 +81,7 @@ const Landing = () => {
     <Heading1>Astro<Span>S</Span></Heading1>
     <Heading2>Securing our Satellites</Heading2>
     <Icon src={Right} onClick={()=>{NextPage()}}></Icon>
-    </div>
+    </>
   )
 }
 
