@@ -19,7 +19,7 @@ module.exports = {
         "btnbg" : "url('./components/assets/images/btnbg.svg')",
         "circle": "url('./components/assets/images/circle.svg')",
         "location" :"url('./components/assets/images/location.svg')",
-        "moon" : "url('./components/assets/images/moon.svg')",
+        "moon" : "url('./components/assets/images/moon.png')",
         "spacecard" : "url('./components/assets/images/spacecard.svg')"
       },
       fontFamily: {
