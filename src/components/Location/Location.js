@@ -3,11 +3,26 @@ import Nav from '../Nav';
 import { Map, Marker } from 'pigeon-maps';
 import Mark from '../assets/images/marker.svg';
 import { osm } from 'pigeon-maps/providers'
+import axios from 'axios';
 
 const Location = () => {
   const [center, setCenter] = useState([50.87, 4.69]);
   const [zoom, setZoom] = useState(2);
   const [markerPosition, setMarkerPosition] = useState([50.87, 4.69]);
+  const norad = 52939
+  axios({
+    method: 'post',
+    url: 'http://localhost:8000/sat/satLocation',
+    data: {"norad": norad}
+
+})
+.then((response) => {
+    console.log(response)
+    console.log(response.data.user.token)
+})
+.catch((error) => {
+    console.log("XXX",error)
+})
 
   return (
     <div className='h-[100vh] w-[100vw] bg-location bg-center bg-no-repeat bg-cover'>
