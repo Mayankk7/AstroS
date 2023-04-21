@@ -7,6 +7,7 @@ import Moon from "../assets/images/moon.png";
 import "../../scrollbar.css";
 
 const Space = () => {
+  // const [data, setData] = useState(["abc", "xxx"]);
   const Web3 = require("web3");
   const astrosABI = require("../astrosABI.json");
 
@@ -16,13 +17,30 @@ const Space = () => {
   const contractAddress = "0x52146e2b6D392b9ca54E5083b40c2d693e6Ea769";
 
   const ipfsstore = new web3.eth.Contract(astrosABI, contractAddress);
-
+  // var data
   const get = async () => {
-    const data = await ipfsstore.methods.retrieveAll().call();
-    console.log(`Current data: ${data}`);
+    const newData = await ipfsstore.methods.retrieveAll().call();
+    // setData(newData)
+    console.log(`Current data: ${newData[1]}-----${newData[3]}`);
+    
+    
+    const hexString = newData[1].slice(2);
+    // Convert the hex string to a byte array
+    const byteArray = new Uint8Array(
+      hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16))
+    );
+
+    // Convert the byte array to a string
+    const jsonString = String.fromCharCode(...byteArray);
+
+    // Parse the JSON string into an object
+    // const obj = JSON.parse(jsonString);
+
+    console.log("decoded",jsonString);
   };
 
   get();
+  // setData(newData)
 
   const [clicked, setClicked] = useState(false);
 
@@ -97,6 +115,9 @@ const Space = () => {
             </div>
             <div className="w-[40vw] mt-4 opacity-70 border-[1px] border-white"></div>
           </div>
+          {/* {data.map(product => {
+              <p>{product}</p>
+           })} */}
           {!clicked && (
             <button
               onClick={() => {
