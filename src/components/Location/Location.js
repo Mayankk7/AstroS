@@ -34,11 +34,13 @@ const Location = () => {
         setSpeed(response.data.speed);
         setRa(response.data.rightAscension);
         setDec(response.data.declination);
-        setMarkerPosition([lat, long]);
+
       })
       .catch((error) => {
         console.log("XXX", error);
       });
+
+      setMarkerPosition([long,lat]);
   };
 
   useEffect(() => {
@@ -71,9 +73,9 @@ const Location = () => {
             }}
           >
             {/* Marker component with anchor prop set to markerPosition */}
-            <Marker anchor={markerPosition}>
+            <Marker anchor={[long.lat]}>
               {/* Image source set to Mark */}
-              <img src={Mark} alt="Satellite" className="w-[6vw] h-[6vh]" />
+              <img src={Mark} alt="Satellite" className="w-[7vw] h-[7vh]" />
             </Marker>
           </Map>
         </div>
