@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "../Nav";
 import Web3 from "web3";
 import astrosABI from "../astrosABI.json";
@@ -19,28 +19,9 @@ const Space = () => {
   const ipfsstore = new web3.eth.Contract(astrosABI, contractAddress);
   // var data
   let arr = []
-  const get = async () => {
-    const newData = await ipfsstore.methods.retrieveAll().call();
-    // setData(newData)
-    console.log(`Current data: ${newData[1]}-----${newData[3]}`);
-    
-    newData.forEach((element) => {
-      const hexString = newData[1].slice(2);
-      const byteArray = new Uint8Array(
-        hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16))
-      );
-      const jsonString = String.fromCharCode(...byteArray);
-      let jsonStr = jsonString.replace(/"({.*})"/g, "$1");
-      const obj = JSON.parse(jsonStr);
-      arr.push(obj)
-      setData(arr)
-    });
-   
 
-  };
-  console.log("decoded", data);
+  //  console.log("decoded", data);
 
-  get();
   // setData(newData)
 
   const [clicked, setClicked] = useState(false);
@@ -51,6 +32,38 @@ const Space = () => {
     btn.style.height = "200vh";
     btn.style.overflow = "hidden";
   };
+
+
+  const getData = () => {
+    setData(arr);
+  }
+  useEffect(() => {
+    const get = async () => {
+      try {
+        const newData = await ipfsstore.methods.retrieveAll().call();
+        const newArr = []; // Create a new array to store the values
+        newData.forEach((element) => {
+          const hexString = element.slice(2);
+          const byteArray = new Uint8Array(
+            hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16))
+          );
+          const jsonString = String.fromCharCode(...byteArray);
+          let jsonStr = jsonString.replace(/"({.*})"/g, "$1");
+          const obj = JSON.parse(jsonStr);
+          newArr.push(obj); // Push values into the new array
+        });
+        setData(newArr); // Update state with the new array
+      } catch (error) {
+        // Handle error if needed
+        console.error("Error while retrieving data:", error);
+      }
+    };
+    console.log(data);
+    get();
+  }, []); // Empty dependencies array to ensure the effect is only triggered on mount
+
+  // ... rest of the code
+
 
   return (
     <div className="h-[100vh] w-[100vw] bg-location bg-center bg-no-repeat bg-cover">
@@ -68,67 +81,44 @@ const Space = () => {
       <div className="h-[70vh] w-[60vw] scrollable-div">
         <div
           id="btn"
-          className="border-[1px] border-white w-[50vw] ml-[9.5vw] mt-8 rounded-[30px] bg-spacecard bg-center bg-cover bg-no-repeat h-[60vh]"
+          className="border-[1px] mb-16 overflow-y-scroll border-white w-[50vw] ml-[9.5vw] mt-8 rounded-[30px] bg-spacecard bg-center bg-cover bg-no-repeat h-[60vh]"
         >
-          <div className="px-[5vw] ">
-            <div className="flex mt-[4vh] flex-row justify-between">
-              <p className="text-white font-bold font-inter">Object Detected</p>
-              <p className="text-white font-inter">21:30 UTC</p>
-            </div>
-            <div className="flex mt-4 w-[28vw] flex-row justify-between">
-              <p className="text-white text-sm font-inter">Size</p>
-              <p className="text-white text-sm font-inter">Velocity</p>
-              <p className="text-white text-sm font-inter">Location</p>
-            </div>
-            <div className="flex mt-4 w-[28vw] flex-row justify-between">
-              <p className="text-[#D2651C] text-sm font-bold font-inter">
-                120cm
-              </p>
-              <p className="text-[#D2651C] text-sm font-bold font-inter">
-                120cm
-              </p>
-              <p className="text-[#D2651C] text-sm font-bold font-inter">
-                120cm
-              </p>
-            </div>
-            <div className="w-[40vw] mt-4 opacity-70 border-[1px] border-white"></div>
-          </div>
-          <div className="px-[5vw] ">
-            <div className="flex mt-[4vh] flex-row justify-between">
-              <p className="text-white font-bold font-inter">Object Detected</p>
-              <p className="text-white font-inter">21:30 UTC</p>
-            </div>
-            <div className="flex mt-4 w-[28vw] flex-row justify-between">
-              <p className="text-white text-sm font-inter">Size</p>
-              <p className="text-white text-sm font-inter">Velocity</p>
-              <p className="text-white text-sm font-inter">Location</p>
-            </div>
-            <div className="flex mt-4 w-[28vw] flex-row justify-between">
-              <p className="text-[#D2651C] text-sm font-bold font-inter">
-                120cm
-              </p>
-              <p className="text-[#D2651C] text-sm font-bold font-inter">
-                120cm
-              </p>
-              <p className="text-[#D2651C] text-sm font-bold font-inter">
-                120cm
-              </p>
-            </div>
-            <div className="w-[40vw] mt-4 opacity-70 border-[1px] border-white"></div>
-          </div>
+          {
+            data.map((re) => {
+
+              return (
+                <div className="px-[5vw] ">
+                  <div className="flex mt-[4vh] flex-row justify-between">
+                    <p className="text-white font-bold font-inter">Object Detected</p>
+                    <p className="text-white font-inter">{re.time} UTC</p>
+                  </div>
+                  <div className="flex mt-4 w-[28vw] flex-row justify-between">
+                    <p className="text-white text-sm font-inter">Size</p>
+                    <p className="text-white text-sm font-inter">Velocity</p>
+                    <p className="text-white text-sm font-inter">Location</p>
+                  </div>
+                  <div className="flex mt-4 w-[30vw] flex-row justify-between">
+                    <p className="text-[#D2651C] text-sm font-bold font-inter">
+                      {re.size}
+                    </p>
+                    <p className="text-[#D2651C] text-sm font-bold font-inter">
+                      {re.velocity} km/s
+                    </p>
+                    {re.position && 
+                      <p className="text-[#D2651C] text-sm font-bold font-inter">
+                      ({re.position.x} , {re.position.y} , {re.position.z})</p>
+                    } 
+                    
+                  </div>
+                  <div className="w-[40vw] mt-4 opacity-70 border-[1px] border-white"></div>
+                </div>
+              )
+            })
+          }
           {/* {data.map(product => {
               <p>{product}</p>
            })} */}
-          {!clicked && (
-            <button
-              onClick={() => {
-                handleClick();
-              }}
-              className="text-white px-4 w-[15vw] rounded-lg mt-10 font-inter hover:border-2 hover:bg-white hover:text-black ml-[17vw] py-2 border-[1px] border-white"
-            >
-              View More
-            </button>
-          )}
+
         </div>
       </div>
     </div>
