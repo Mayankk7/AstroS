@@ -51,7 +51,7 @@ const ID = () => {
       <div className='flex flex-row'>
         <button className='px-8 py-4 bg-center hover:underline bg-cover bg-no-repeat font-bold w-[14vw] mt-12 ml-32 border-[1px] hover:opacity-80 border-white text-lg text-white rounded-lg bg-btnbg'
           onClick={()=>{
-            window.location.href="/location"
+            window.location.href=`/location/:${norad.norad}`
           }}
         >Instantaneous Details</button>
         <button

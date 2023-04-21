@@ -18,7 +18,7 @@ function App() {
           <Route path="/register" element={<Register/>}/>
           <Route path='/home' element={<Home/>}/>
           <Route path="/:norad" element={<ID/>}/>
-          <Route path="/location" element={<Location/>}/>
+          <Route path="/location/:norad" element={<Location/>}/>
           <Route path="/traffic" element={<Space/>}/>
         </Routes>
       </BrowserRouter>

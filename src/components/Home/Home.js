@@ -71,7 +71,7 @@ const Home = () => {
 
         <div
           id="btn"
-          className="w-[70vw] rounded-xl m-auto border-2 bg-homecard bg-center bg-no-repeat bg-cover  h-[90vh]  text-opacity-100 border-white"
+          className="w-[70vw] overflow-y-scroll rounded-xl m-auto border-2 bg-homecard bg-center bg-no-repeat bg-cover  h-[70vh]  text-opacity-100 border-white"
         >
           <div className="flex flex-row">
             <div className="flex">
@@ -91,7 +91,7 @@ const Home = () => {
               </p>
             </div>
           </div>
-          <div className="flex flex-row justify-evenly mt-8 flex-wrap">
+          <div className="flex flex-row justify-evenly mt-8 mb-16 flex-wrap">
             {
                 satellite.length > 0 ?
                     satellite.map((sat)=>{
@@ -104,15 +104,6 @@ const Home = () => {
                 
             }
           </div>
-          {!clicked && (
-            <button
-              onClick={handleMoreSatellitesClick}
-              id="btn1"
-              className="bg-transparent border-[3px] text-center float-right mr-[4vw] border-white w-[10vw] px-2 py-1 text-sm rounded-lg text-white hover:bg-white hover:text-black ml-16 mt-6"
-            >
-              More Satellites
-            </button>
-          )}
         </div>
       </div>
     </div>
