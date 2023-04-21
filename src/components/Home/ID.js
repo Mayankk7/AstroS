@@ -5,14 +5,15 @@ import Sat from "../assets/images/Sat.svg"
 import axios from 'axios';
 
 const ID = () => {
-  const norad = useParams();
+  const norad = useParams().norad;
   const [satellite,setSatellite] = useState();
-
+console.log(norad)
   const getData = async() => {
     await axios.post('/sat/findSatbyid',{
-      norad:norad.norad
+      norad
     }).then((res)=>{
       console.log(res.data);
+      setSatellite(res.data.satellites)
     })
   }
 
@@ -25,8 +26,8 @@ const ID = () => {
       <Nav />
       <img src={Sat} className='absolute h-[70vh] ml-[70vw] mt-32' />
       <div className='flex flex-row'>
-        <p className='text-[6vh] font-inter text-white font-extrabold mt-8 ml-28'>{satellite.name}</p>
-        <p className='text-[2vh] font-inter text-white ml-[1.5vw] font-bold mt-[9vh]'>Norad ID - {norad.norad}</p>
+        <p className='text-[6vh] font-inter text-white font-extrabold mt-8 ml-28'>{satellite?satellite.name:"---"}</p>
+        <p className='text-[2vh] font-inter text-white ml-[1.5vw] font-bold mt-[9vh]'>Norad ID - {norad}</p> 
       </div>
       <p className='ml-28 text-xl text-[#D2651C]'>NASA</p>
       <div className='w-[80vw] ml-28 mt-8 absolute'>
@@ -39,12 +40,12 @@ const ID = () => {
           <p className='font-meri mt-4 text-md font-bold text-white text-center'>1200 kg</p>
         </div>
         <div className='border-2 bg-circle bg-center bg-no-repeat bg-cover  rounded-full w-[150px] h-[150px]'>
-        <p className='font-meri mt-10 text-sm text-white text-center'>Power</p>
-        <p className='font-meri mt-4 text-md font-bold text-white text-center'>1000 W</p>
+        <p className='font-meri mt-10 text-sm text-white text-center'>Period</p>
+        <p className='font-meri mt-4 text-md font-bold text-white text-center'>{satellite?satellite.period:"NA"}</p>
         </div>
         <div className='border-2 bg-circle bg-center bg-no-repeat bg-cover  rounded-full w-[150px] h-[150px]'>
         <p className='font-meri mt-10 text-sm text-white text-center'>Launch</p>
-        <p className='font-meri mt-4 text-md font-bold text-white text-center'>23-1-08</p>
+        <p className='font-meri mt-4 text-md font-bold text-white text-center'>{satellite?satellite.launch_date:"NA"}</p>
         </div>
       </div>
 
