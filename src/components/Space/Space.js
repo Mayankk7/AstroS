@@ -7,7 +7,7 @@ import Moon from "../assets/images/moon.png";
 import "../../scrollbar.css";
 
 const Space = () => {
-  // const [data, setData] = useState(["abc", "xxx"]);
+  const [data, setData] = useState(["abc", "xxx"]);
   const Web3 = require("web3");
   const astrosABI = require("../astrosABI.json");
 
@@ -18,26 +18,27 @@ const Space = () => {
 
   const ipfsstore = new web3.eth.Contract(astrosABI, contractAddress);
   // var data
+  let arr = []
   const get = async () => {
     const newData = await ipfsstore.methods.retrieveAll().call();
     // setData(newData)
     console.log(`Current data: ${newData[1]}-----${newData[3]}`);
     
-    
-    const hexString = newData[1].slice(2);
-    // Convert the hex string to a byte array
-    const byteArray = new Uint8Array(
-      hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16))
-    );
+    newData.forEach((element) => {
+      const hexString = newData[1].slice(2);
+      const byteArray = new Uint8Array(
+        hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16))
+      );
+      const jsonString = String.fromCharCode(...byteArray);
+      let jsonStr = jsonString.replace(/"({.*})"/g, "$1");
+      const obj = JSON.parse(jsonStr);
+      arr.push(obj)
+      setData(arr)
+    });
+   
 
-    // Convert the byte array to a string
-    const jsonString = String.fromCharCode(...byteArray);
-
-    // Parse the JSON string into an object
-    // const obj = JSON.parse(jsonString);
-
-    console.log("decoded",jsonString);
   };
+  console.log("decoded", data);
 
   get();
   // setData(newData)
