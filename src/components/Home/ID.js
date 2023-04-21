@@ -1,8 +1,22 @@
-import React from 'react'
+import React, {useEffect, useParams} from 'react'
 import Nav from "../Nav"
 import Sat from "../assets/images/Sat.svg"
+import axios from 'axios';
 
 const ID = () => {
+  const norad = useParams();
+
+  const getData = async() => {
+    await axios.post('/sat/findSatbyid',{
+      norad:norad
+    }).then((res)=>{
+      console.log(res.data);
+    })
+  }
+
+  useEffect(()=>{
+    getData();
+  },[])
   return (
     <div className='h-[100vh] w-[100vw] bg-[#151515]'>
       <Nav />
