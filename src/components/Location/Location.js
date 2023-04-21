@@ -9,6 +9,13 @@ const Location = () => {
   const [center, setCenter] = useState([50.87, 4.69]);
   const [zoom, setZoom] = useState(2);
   const [markerPosition, setMarkerPosition] = useState([50.87, 4.69]);
+  const [utc, setUtc] = useState("NA")
+  const [lat, setLat] = useState("NA")
+  const [long, setLong] = useState("NA")
+  const [alt, setAlt] = useState("NA")
+  const [speed, setSpeed] = useState("NA")
+  const [ra, setRa] = useState("NA")
+  const [dec, setDec] = useState("NA")
   const norad = 52939
   axios({
     method: 'post',
@@ -18,7 +25,15 @@ const Location = () => {
 })
 .then((response) => {
     console.log(response)
-    console.log(response.data.user.token)
+    console.log(response.data)
+    setUtc(response.data.utc)
+    setLat(response.data.lat)
+    setLong(response.data.long)
+    setAlt(response.data.alt)
+    setSpeed(response.data.speed)
+    setRa(response.data.rightAscension)
+    setDec(response.data.declination)
+    setMarkerPosition([lat,long])
 })
 .catch((error) => {
     console.log("XXX",error)
@@ -28,7 +43,7 @@ const Location = () => {
     <div className='h-[100vh] w-[100vw] bg-location bg-center bg-no-repeat bg-cover'>
       <Nav />
       <div className='flex flex-row'>
-        <p className='text-[6vh] font-inter text-white font-extrabold mt-4 ml-36'>POEM</p>
+        <p className='text-[6vh] font-inter text-white font-extrabold mt-4 ml-36'>Poem</p>
         <p className='text-[2vh] font-inter text-white ml-[1.5vw] font-bold mt-[6vh]'>Norad ID - 52939</p>
       </div>
       <p className='ml-36 text-xl text-[#D2651C]'>NASA</p>
@@ -55,31 +70,31 @@ const Location = () => {
         <div className='w-[30vw] px-28 py-16'>
         <div className='flex flex-row justify-between'>
             <p className='text-white font-bold text-md font-inter'>UTC</p>
-            <p className='text-white font-bold text-md font-inter'>NA</p>
+            <p className='text-white font-bold text-md font-inter'>{utc}</p>
         </div>
         <div className='flex flex-row mt-8 justify-between'>
             <p className='text-white font-bold text-md font-inter'>Latitude</p>
-            <p className='text-white font-bold text-md font-inter'>NA</p>
+            <p className='text-white font-bold text-md font-inter'>{lat}</p>
         </div>
         <div className='flex flex-row mt-8 justify-between'>
             <p className='text-white font-bold text-md font-inter'>Longitude</p>
-            <p className='text-white font-bold text-md font-inter'>NA</p>
+            <p className='text-white font-bold text-md font-inter'>{long}</p>
         </div>
         <div className='flex flex-row mt-8 justify-between'>
             <p className='text-white font-bold text-md font-inter'>Altitude (km)</p>
-            <p className='text-white font-bold text-md font-inter'>NA</p>
+            <p className='text-white font-bold text-md font-inter'>{alt}</p>
         </div>
         <div className='flex flex-row mt-8 justify-between'>
             <p className='text-white font-bold text-md font-inter'>Speed (km/s)</p>
-            <p className='text-white font-bold text-md font-inter'>NA</p>
+            <p className='text-white font-bold text-md font-inter'>{speed}</p>
         </div>
         <div className='flex flex-row mt-8 justify-between'>
             <p className='text-white font-bold text-md font-inter'>Right Ascension</p>
-            <p className='text-white font-bold text-md font-inter'>NA</p>
+            <p className='text-white font-bold text-md font-inter'>{ra}</p>
         </div>
         <div className='flex flex-row mt-8 justify-between'>
             <p className='text-white font-bold text-md font-inter'>Declination</p>
-            <p className='text-white font-bold text-md font-inter'>NA</p>
+            <p className='text-white font-bold text-md font-inter'>{dec}</p>
         </div>
         
             
