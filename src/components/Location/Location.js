@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Nav from '../Nav';
 import { Map, Marker } from 'pigeon-maps';
 import Mark from '../assets/images/marker.svg';
@@ -45,15 +45,15 @@ const randomIndex = Math.floor(Math.random() * data.length);
 const randomData = data[randomIndex];
 
   return (
-    <div className='h-[100vh] w-[100vw] bg-location bg-center bg-no-repeat bg-cover'>
+    <div className="h-[100vh] w-[100vw] bg-location bg-center bg-no-repeat bg-cover">
       <Nav />
       <div className='flex flex-row'>
         <p className='text-[6vh] font-inter text-white font-extrabold  ml-36'>Poem</p>
         <p className='text-[2vh] font-inter text-white ml-[1.5vw] font-bold mt-[4vh]'>Norad ID - {norad.norad}</p>
       </div>
-      <p className='ml-36 text-xl text-[#D2651C]'>NASA</p>
-      <div className='w-[60vw] border-[1px] border-white flex flex-row h-[70vh] rounded-lg m-auto'>
-        <div className='w-[30vw]'>
+      <p className="ml-36 text-xl text-[#D2651C]">NASA</p>
+      <div className="w-[60vw] border-[1px] border-white flex flex-row h-[70vh] rounded-lg m-auto">
+        <div className="w-[30vw]">
           <Map
             height={600}
             provider={osm}
@@ -67,7 +67,7 @@ const randomData = data[randomIndex];
             {/* Marker component with anchor prop set to markerPosition */}
             <Marker anchor={[randomData.long,randomData.lat]}>
               {/* Image source set to Mark */}
-              <img src={Mark} alt='Satellite' className='w-[6vw] h-[6vh]' />
+              <img src={Mark} alt="Satellite" className="w-[7vw] h-[7vh]" />
             </Marker>
           </Map>
         </div>
