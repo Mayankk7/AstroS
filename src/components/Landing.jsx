@@ -8,6 +8,7 @@ const CanvasContainer = styled.div`
   width: 50%;
   margin-left:30vw;
   height: 100%;
+  overflow:hidden;
   position:absolute;
   margin-top:15vh;
 `;
