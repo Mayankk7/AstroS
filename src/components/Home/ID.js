@@ -1,20 +1,23 @@
-import React, {useEffect, useParams} from 'react'
+import React, {useEffect,useState} from 'react'
+import { useParams } from 'react-router-dom';
 import Nav from "../Nav"
 import Sat from "../assets/images/Sat.svg"
 import axios from 'axios';
 
 const ID = () => {
   const norad = useParams();
+  const [satellite,setSatellite] = useState();
 
   const getData = async() => {
     await axios.post('/sat/findSatbyid',{
-      norad:norad
+      norad:norad.norad
     }).then((res)=>{
       console.log(res.data);
     })
   }
 
   useEffect(()=>{
+    console.log(norad.norad);
     getData();
   },[])
   return (
@@ -22,8 +25,8 @@ const ID = () => {
       <Nav />
       <img src={Sat} className='absolute h-[70vh] ml-[70vw] mt-32' />
       <div className='flex flex-row'>
-        <p className='text-[6vh] font-inter text-white font-extrabold mt-8 ml-28'>POEM</p>
-        <p className='text-[2vh] font-inter text-white ml-[1.5vw] font-bold mt-[9vh]'>Norad ID - 52939</p>
+        <p className='text-[6vh] font-inter text-white font-extrabold mt-8 ml-28'>{satellite.name}</p>
+        <p className='text-[2vh] font-inter text-white ml-[1.5vw] font-bold mt-[9vh]'>Norad ID - {norad.norad}</p>
       </div>
       <p className='ml-28 text-xl text-[#D2651C]'>NASA</p>
       <div className='w-[80vw] ml-28 mt-8 absolute'>
