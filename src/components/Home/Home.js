@@ -32,10 +32,10 @@ import Web3 from "web3";
 
 const Home = () => {
   // Create a ref for the container div
-
+  let username = localStorage.getItem('username');
     const [satellite,setSatellite] = useState([]);
     const getData = async() => {
-        let username = localStorage.getItem('username');
+        
 
         await axios.get(`/sat/findSats?username=${username}`)
         .then((res)=>{
@@ -65,7 +65,7 @@ const Home = () => {
             Welcome Back
           </p>
           <p className="text-[2.5vh] text-white font-inter ml-[6vw] mt-2">
-            NASA
+            {username}
           </p>
         </div>
 
@@ -79,7 +79,7 @@ const Home = () => {
                 Total Satellites
               </p>
               <p className="text-white font-inter text-lg font-bold mt-7 ml-16">
-                11
+                {satellite.length}
               </p>
             </div>
             <div className="flex ml-16">
@@ -87,7 +87,7 @@ const Home = () => {
                 Working Satellites
               </p>
               <p className="text-white font-inter text-lg font-bold mt-7 ml-16">
-                11
+                {satellite.length}
               </p>
             </div>
           </div>
