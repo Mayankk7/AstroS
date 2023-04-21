@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import Nav from "../Nav";
-import { Map, Marker } from "pigeon-maps";
-import Mark from "../assets/images/marker.svg";
-import { osm } from "pigeon-maps/providers";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import Nav from '../Nav';
+import { Map, Marker } from 'pigeon-maps';
+import Mark from '../assets/images/marker.svg';
+import { osm } from 'pigeon-maps/providers'
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const Location = () => {
   const [center, setCenter] = useState([50.87, 4.69]);
@@ -51,13 +52,9 @@ const Location = () => {
   return (
     <div className="h-[100vh] w-[100vw] bg-location bg-center bg-no-repeat bg-cover">
       <Nav />
-      <div className="flex flex-row">
-        <p className="text-[6vh] font-inter text-white font-extrabold mt-4 ml-36">
-          Poem
-        </p>
-        <p className="text-[2vh] font-inter text-white ml-[1.5vw] font-bold mt-[6vh]">
-          Norad ID - 52939
-        </p>
+      <div className='flex flex-row'>
+        <p className='text-[6vh] font-inter text-white font-extrabold  ml-36'>Poem</p>
+        <p className='text-[2vh] font-inter text-white ml-[1.5vw] font-bold mt-[4vh]'>Norad ID - 52939</p>
       </div>
       <p className="ml-36 text-xl text-[#D2651C]">NASA</p>
       <div className="w-[60vw] border-[1px] border-white flex flex-row h-[70vh] rounded-lg m-auto">
