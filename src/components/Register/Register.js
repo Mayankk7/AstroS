@@ -19,7 +19,7 @@ const Register = () => {
     await axios.post('/signup',obj)
     .then((res)=>{
       if(res.status == 200){
-        window.location.href="/home"
+        window.location.href="/login"
       }
     })
 

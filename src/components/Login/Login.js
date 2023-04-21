@@ -9,21 +9,20 @@ const Login = () => {
 
   const Login = async() => {
       const obj = {
-        username,password
+        username: username,
+        password: password
       };
-      // console.log(obj)
+       console.log(obj)
 
-      await axios.get('/login',obj)
-      .then((res)=>{
-        console.log(res);
-        if(res.data.data==="No User Found"){
+       await axios.post('/login',obj)
+       .then((res)=>{
+        if(res.data.data === "No User Found"){
           alert("Wrong Credentials");
+        }else{
+          localStorage.setItem('username',res.data.data.username);
+          window.location.href="/home";
         }
-        else{
-          localStorage.setItem('username',res.data.data.username)
-          window.location.href="/home"
-        }
-      })
+       })
 
   }
 
